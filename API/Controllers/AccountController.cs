@@ -14,17 +14,18 @@ namespace API.Controllers
             
         }
 
-        [HttpGet] //api/accounts
+        [HttpGet] //api/Account
         public async Task<ActionResult<List<Account>>> GetAccounts(){
             return await _context.Accounts.ToListAsync();
         }
 
-        [HttpGet("{id}")] //api/accounts/{id}
+        [HttpGet("{id}")] //api/Account/{id}
         public async Task<ActionResult<Account>> GetAccount(Guid id){
             return await _context.Accounts.FindAsync(id);
         }
 
         
+
 
     }
 }
