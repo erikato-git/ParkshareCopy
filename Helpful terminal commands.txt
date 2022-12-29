@@ -1,0 +1,13 @@
+
+Adding new migration to db:
+dotnet ef migrations add InitialCreate -s API -p Persistence
+
+check dotnet tools:
+dotnet tool list -g
+
+ensure new dependencies are updated in all projects:
+dotnet restore
+
+activating file-watcher (better alternative to hot-reload):
+dotnet watch --no-hot-reload
+
