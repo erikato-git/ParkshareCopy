@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hRwV7/rLE0xnoRX5HwXlC3AJI3DNsNmoElJ4gFE8TLLaAcZ5tsLRP8DmDiIgMXbTrenz0RZxfL1QpcvxSwE0sA==",
+  "dgSpecHash": "+mIcfN9yX1++IXKPtlofMA0FMwMRdDqYc/B/Rm7dvSkoqxMaOVb/Jpp7i+xVszsdzojstKsQQNI0SE0w+a8EMQ==",
   "success": true,
-  "projectFilePath": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj",
+  "projectFilePath": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\erikk\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\erikk\\.nuget\\packages\\microsoft.data.sqlite.core\\7.0.1\\microsoft.data.sqlite.core.7.0.1.nupkg.sha512",

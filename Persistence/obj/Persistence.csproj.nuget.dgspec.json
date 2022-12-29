@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj": {}
+    "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj": {}
   },
   "projects": {
-    "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj": {
+    "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj",
+        "projectPath": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\erikk\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\obj\\",
+        "outputPath": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\erikk\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,14 +59,14 @@
         }
       }
     },
-    "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj": {
+    "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj",
+        "projectUniqueName": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj",
         "projectName": "Persistence",
-        "projectPath": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj",
+        "projectPath": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\Persistence.csproj",
         "packagesPath": "C:\\Users\\erikk\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\obj\\",
+        "outputPath": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Persistence\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\erikk\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -76,14 +76,15 @@
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj": {
-                "projectPath": "c:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj"
+              "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\erikk\\Desktop\\ParkshareCopy\\ParkshareCopy\\Domain\\Domain.csproj"
               }
             }
           }
