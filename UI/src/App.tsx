@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
+import 'semantic-ui-css/semantic.min.css'
 
 function App() {
   const [accounts,setAccounts] = useState([]);
@@ -9,7 +10,7 @@ function App() {
   useEffect(() => {
     axios.get('http://localhost:5000/api/Account')
     .then(response => {
-      console.log(response)
+      console.log(response.data)
       setAccounts(response.data);
     })
   }, [])
