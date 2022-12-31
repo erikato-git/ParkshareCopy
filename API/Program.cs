@@ -1,3 +1,5 @@
+using Application.Accounts;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -17,6 +19,8 @@ builder.Services.AddCors(opt => {
         policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
     });
 });
+// Fortæller hvor jeg kan finde MediatR-handlers
+builder.Services.AddMediatR(typeof(AccountDetail.Handler));
 
 var app = builder.Build();
 

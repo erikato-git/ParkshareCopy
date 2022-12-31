@@ -3,6 +3,8 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
+import { Header } from 'semantic-ui-react';
+import List from 'semantic-ui-react/dist/commonjs/elements/List';
 
 function App() {
   const [accounts,setAccounts] = useState([]);
@@ -18,16 +20,15 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
+        <Header as='h2' icon='users' content='Accounts' />
         <img src={logo} className="App-logo" alt="logo" />
-        <ul>
+        <List>
           {accounts.map((account: any) => (
-            <li key={account.id}>
+            <List.Item key={account.id}>
               {account.name}
-            </li>
+            </List.Item>
           ))}
-        </ul>
-      </header>
+        </List>
     </div>
   );
 }
