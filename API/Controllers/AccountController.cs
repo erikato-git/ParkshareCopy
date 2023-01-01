@@ -31,6 +31,10 @@ namespace API.Controllers
             return Ok(await Mediator.Send(new AccountEdit.Command{Account = account}));
         }
         
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAccount(Guid id){
+            return Ok(await Mediator.Send(new AccountDelete.Command{Id = id}));
+        }
 
 
     }
