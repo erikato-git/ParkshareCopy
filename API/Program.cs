@@ -1,4 +1,5 @@
 using Application.Accounts;
+using Application.Core;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -21,6 +22,7 @@ builder.Services.AddCors(opt => {
 });
 // Fortæller hvor jeg kan finde MediatR-handlers
 builder.Services.AddMediatR(typeof(AccountDetail.Handler));
+builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
 
 var app = builder.Build();
 
