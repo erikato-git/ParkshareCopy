@@ -12,3 +12,12 @@ activating file-watcher (better alternative to hot-reload):
 dotnet watch --no-hot-reload
 
 (keyboard-shortcut) Highlight all occurences: ctrl + shift + l 
+
+How to activate debugger:
+1. Put a breakpoint in controller- and domain-class
+2. Click on run and debugger
+3. Choose .NET Core Attach
+4. Activate breakpoints through Postman-requests 
+5. Shut down terminal and chech variables in left corner
+6. Turn back to the breakpoints and click Step Over to check current variables and which went through
+7. Click on disconnect after using the debugger
