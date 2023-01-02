@@ -21,3 +21,6 @@ How to activate debugger:
 5. Shut down terminal and chech variables in left corner
 6. Turn back to the breakpoints and click Step Over to check current variables and which went through
 7. Click on disconnect after using the debugger
+
+Create React-project:
+npx create-react-app my-app

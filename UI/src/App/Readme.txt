@@ -1,0 +1,1 @@
+App-folder contains all code that is not specific to a single feature
