@@ -3,12 +3,14 @@ import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
 import { Header } from 'semantic-ui-react';
 import List from 'semantic-ui-react/dist/commonjs/elements/List';
+import { Account } from '../Models/Account';
 
 function App() {
-  const [accounts,setAccounts] = useState([]);
+  // Adding Account[] the the types adds type-safety
+  const [accounts,setAccounts] = useState<Account[]>([]);
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/Account')
+    axios.get<Account[]>('http://localhost:5000/api/Account')
     .then(response => {
       setAccounts(response.data);
     })
@@ -18,7 +20,7 @@ function App() {
     <div className="App">
         <Header as='h2' icon='users' content='Accounts' />
         <List>
-          {accounts.map((account: any) => (
+          {accounts.map((account) => (
             <List.Item key={account.id}>
               {account.name}
             </List.Item>
