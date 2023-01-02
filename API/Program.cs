@@ -1,3 +1,4 @@
+using API.Extensions;
 using Application.Accounts;
 using Application.Core;
 using MediatR;
@@ -9,20 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<DataContext>(opt => {
-    opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
-}); 
-builder.Services.AddCors(opt => {
-    opt.AddPolicy("CorsPolicy",policy => {
-        policy.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:3000");
-    });
-});
-// Fortæller hvor jeg kan finde MediatR-handlers
-builder.Services.AddMediatR(typeof(AccountDetail.Handler));
-builder.Services.AddAutoMapper(typeof(MappingProfiles).Assembly);
+// Doesn't need two parameters because the method recognize that the first parameter is what builder.Configuration is used on
+builder.Services.AddApplicationServices(builder.Configuration);
 
 var app = builder.Build();
 

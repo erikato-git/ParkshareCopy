@@ -11,3 +11,4 @@ dotnet restore
 activating file-watcher (better alternative to hot-reload):
 dotnet watch --no-hot-reload
 
+(keyboard-shortcut) Highlight all occurences: ctrl + shift + l 
