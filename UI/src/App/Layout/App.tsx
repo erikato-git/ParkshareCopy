@@ -10,6 +10,8 @@ import AccountDashboard from '../../features/accounts/dashboard/AccountDashboard
 function App() {
   // Adding Account[] the the types adds type-safety
   const [accounts,setAccounts] = useState<Account[]>([]);
+  // useState<Account | undefined> tager højde for at vælge account og cancel account
+  const [selectedAccount, SetSelectedAccount] = useState<Account | undefined>(undefined);
 
   useEffect(() => {
     axios.get<Account[]>('http://localhost:5000/api/Account')
@@ -18,17 +20,51 @@ function App() {
     })
   }, [])
 
+  function handleSelectAccount(id: string){
+    SetSelectedAccount(accounts.find(x => x.id == id));
+  }
+
+  function handleCancelSelectedAccount(){
+    SetSelectedAccount(undefined);
+  }
+
   return (
     <div className="App">
         <NavBar/>
         <Container style={{marginTop: '6em'}}>
-          <AccountDashboard accounts={accounts}/>
+          <AccountDashboard 
+            accounts={accounts}
+            selectedAccount={selectedAccount}
+            selectAccount={handleSelectAccount}
+            cancelSelectedAccount={handleCancelSelectedAccount}
+          />
         </Container>
     </div>
   );
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   // Alternative to axios. Use fetch

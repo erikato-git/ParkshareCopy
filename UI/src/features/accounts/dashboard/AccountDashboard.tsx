@@ -7,6 +7,9 @@ import AccountForm from "./form/AccountForm";
 interface Props {
     // provides type-safety
     accounts: Account[];
+    selectedAccount: Account;
+    selectAccount: (id: string) => void;
+    cancelSelectedAccount: () => void;
 }
 
 export default function AccountDashboard({accounts}:Props){
