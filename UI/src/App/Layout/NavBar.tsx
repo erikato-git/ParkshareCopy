@@ -6,7 +6,8 @@ export default function NavBar(){
         <Menu inverted fixed='top'>
             <Container>
                 <Menu.Item header>
-                    <img src="/assets/logo.png" alt="logo"/>
+                    {/* path from public-folder */}
+                    <img src="/assets/logo.png" alt="logo" style={{marginRight:"10px"}}/>
                     Accounts
                 </Menu.Item>
                 <Menu.Item name="Accounts"/>
