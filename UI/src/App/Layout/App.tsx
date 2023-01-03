@@ -4,6 +4,7 @@ import 'semantic-ui-css/semantic.min.css'
 import { Header } from 'semantic-ui-react';
 import List from 'semantic-ui-react/dist/commonjs/elements/List';
 import { Account } from '../Models/Account';
+import NavBar from './NavBar';
 
 function App() {
   // Adding Account[] the the types adds type-safety
@@ -18,7 +19,7 @@ function App() {
 
   return (
     <div className="App">
-        <Header as='h2' icon='users' content='Accounts' />
+        <NavBar/>
         <List>
           {accounts.map((account) => (
             <List.Item key={account.id}>
