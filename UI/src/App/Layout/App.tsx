@@ -11,7 +11,8 @@ function App() {
   // Adding Account[] the the types adds type-safety
   const [accounts,setAccounts] = useState<Account[]>([]);
   // useState<Account | undefined> tager højde for at vælge account og cancel account
-  const [selectedAccount, SetSelectedAccount] = useState<Account | undefined>(undefined);
+  const [selectedAccount, setSelectedAccount] = useState<Account | undefined>(undefined);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     axios.get<Account[]>('http://localhost:5000/api/Account')
@@ -21,12 +22,22 @@ function App() {
   }, [])
 
   function handleSelectAccount(id: string){
-    SetSelectedAccount(accounts.find(x => x.id == id));
+    setSelectedAccount(accounts.find(x => x.id == id));
   }
 
   function handleCancelSelectedAccount(){
-    SetSelectedAccount(undefined);
+    setSelectedAccount(undefined);
   }
+
+  function handleFormOpen(id?: string){
+    id ? handleSelectAccount(id) : handleCancelSelectedAccount();
+    setEditMode(true);
+  }
+
+  function handleFormClose(){
+    setEditMode(false);
+  }
+
 
   return (
     <div className="App">
@@ -37,11 +48,17 @@ function App() {
             selectedAccount={selectedAccount}
             selectAccount={handleSelectAccount}
             cancelSelectedAccount={handleCancelSelectedAccount}
+            editMode={editMode}
+            openForm={handleFormOpen}
+            closeForm={handleFormClose}
           />
         </Container>
     </div>
   );
 }
+
+
+
 
 export default App;
 

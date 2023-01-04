@@ -7,22 +7,40 @@ import AccountForm from "./form/AccountForm";
 interface Props {
     // provides type-safety
     accounts: Account[];
-    selectedAccount: Account;
+    selectedAccount: Account | undefined;
     selectAccount: (id: string) => void;
     cancelSelectedAccount: () => void;
+    editMode: boolean;
+    openForm: (id?: string) => void;
+    closeForm: () => void;
 }
 
-export default function AccountDashboard({accounts}:Props){
+export default function AccountDashboard({accounts, selectedAccount, selectAccount, cancelSelectedAccount, editMode, openForm, closeForm}: Props){
     return(
         <Grid>
             <Grid.Column width='10'>
-                <AccountList accounts={accounts} />
+
+                <AccountList 
+                    accounts={accounts} 
+                    selectAccount={selectAccount} 
+                    />
+
             </Grid.Column>
             <Grid.Column width='6'>
+
                 {/* Makes sure the element isn't null */}
-                {accounts[0] &&
-                <AccountDetails account={accounts[0]} />}
-                <AccountForm />
+                {selectedAccount && <AccountDetails 
+                    account={selectedAccount}
+                    cancelSelectedAccount={cancelSelectedAccount} 
+                    openForm={openForm}
+
+                />}
+
+                {editMode && <AccountForm 
+                    closeForm={closeForm}
+                    account={selectedAccount}
+                />}
+
             </Grid.Column>
         </Grid>
     )
