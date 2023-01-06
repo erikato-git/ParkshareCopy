@@ -6,6 +6,7 @@ import { Account } from '../Models/Account';
 import NavBar from './NavBar';
 import AccountDashboard from '../../features/accounts/dashboard/AccountDashboard';
 import {v4 as uuid} from 'uuid';
+import agent from './api/agent';
 
 function App() {
   // Adding Account[] the the types adds type-safety
@@ -14,10 +15,11 @@ function App() {
   const [selectedAccount, setSelectedAccount] = useState<Account | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
 
+  // Extract the accounts from the API
   useEffect(() => {
-    axios.get<Account[]>('http://localhost:5000/api/Account')
+    agent.Accounts.list()
     .then(response => {
-      setAccounts(response.data);
+      setAccounts(response);
     })
   }, [])
 
