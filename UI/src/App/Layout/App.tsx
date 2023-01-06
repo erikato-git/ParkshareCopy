@@ -16,6 +16,7 @@ function App() {
   const [selectedAccount, setSelectedAccount] = useState<Account | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
   const [loading, setLoading] = useState(true);
+  // submitting bruges til loading-componenten
   const [submitting, setSubmitting] = useState(false);
 
   // Extract the accounts from the API
@@ -78,8 +79,12 @@ function App() {
   }
 
   function handleDeleteAccount(id: string){
-    // filtrerer alle id'er som ikke matcher id
-    setAccounts([...accounts.filter(x => x.id !== id)]);
+    setSubmitting(true);
+    agent.Accounts.delete(id).then(() => {
+      // filtrerer alle id'er som ikke matcher id
+      setAccounts([...accounts.filter(x => x.id !== id)]);
+      setSubmitting(false)
+    })
   }
 
   if (loading) return <LoadingComponent content='Loading app'/> 

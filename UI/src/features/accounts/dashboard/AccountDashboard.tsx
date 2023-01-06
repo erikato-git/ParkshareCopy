@@ -27,6 +27,7 @@ export default function AccountDashboard({accounts, selectedAccount, selectAccou
                     accounts={accounts} 
                     selectAccount={selectAccount} 
                     deleteAccount={deleteAccount}
+                    submitting={submitting}
                     />
 
             </Grid.Column>
