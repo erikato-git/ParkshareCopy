@@ -41,7 +41,7 @@ function App() {
 
   return (
     <div className="App">
-        <NavBar/>
+        <NavBar openForm={handleFormOpen}/>
         <Container style={{marginTop: '6em'}}>
           <AccountDashboard 
             accounts={accounts}

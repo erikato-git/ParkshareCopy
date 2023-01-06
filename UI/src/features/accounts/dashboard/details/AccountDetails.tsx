@@ -4,7 +4,7 @@ import { Account } from "../../../../App/Models/Account";
 interface Props {
     account: Account
     cancelSelectedAccount: () => void;
-    openForm: (id?: string) => void;
+    openForm: (id: string) => void;
 }
 
 
@@ -25,7 +25,8 @@ export default function AccountDetails({account, openForm, cancelSelectedAccount
         <Card.Content extra>
             <Button.Group>
                 <Button onClick={() => openForm(account.id)} basic color="blue" content="Edit" />
-                <Button onClick={() => cancelSelectedAccount} basic color="grey" content="Cancel" />
+                {/* // Don't add lambda */}
+                <Button onClick={cancelSelectedAccount} basic color="grey" content="Cancel" />
             </Button.Group>
         </Card.Content>
       </Card>

@@ -29,7 +29,7 @@ export default function AccountDashboard({accounts, selectedAccount, selectAccou
             <Grid.Column width='6'>
 
                 {/* Makes sure the element isn't null */}
-                {selectedAccount && <AccountDetails 
+                {selectedAccount && !editMode && <AccountDetails 
                     account={selectedAccount}
                     cancelSelectedAccount={cancelSelectedAccount} 
                     openForm={openForm}

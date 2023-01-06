@@ -24,3 +24,6 @@ How to activate debugger:
 
 Create React-project:
 npx create-react-app my-app
+
+Fejl: [eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app 
+- open package.json and type 'ctrl + s'
