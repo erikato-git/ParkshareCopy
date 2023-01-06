@@ -7,9 +7,10 @@ interface Props {
     closeForm: () => void;
     account: Account | undefined;
     createOrEdit: (account: Account) => void;
+    submitting: (boolean);
 }
 
-export default function AccountForm({closeForm, account: selectedAccount, createOrEdit}: Props){
+export default function AccountForm({closeForm, account: selectedAccount, createOrEdit, submitting}: Props){
 
     const initialState = selectedAccount ?? {
         id: '',
@@ -37,7 +38,7 @@ export default function AccountForm({closeForm, account: selectedAccount, create
                 <Form.Input placeholder="name" value={account.name} name='name' onChange={handleInputChange}/>
                 <Form.Input placeholder="email" value={account.email} name='email' onChange={handleInputChange}/>
                 <Form.TextArea placeholder="address" value={account.address} name='address' onChange={handleInputChange}/>
-                <Button floated="right" positive type="submit" content="Submit" />
+                <Button loading={submitting} floated="right" positive type="submit" content="Submit" />
                 <Button onClick={closeForm} floated="right" type="button" content="Cancel" />
             </Form>
         </Segment>

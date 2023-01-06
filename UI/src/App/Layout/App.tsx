@@ -6,7 +6,8 @@ import { Account } from '../Models/Account';
 import NavBar from './NavBar';
 import AccountDashboard from '../../features/accounts/dashboard/AccountDashboard';
 import {v4 as uuid} from 'uuid';
-import agent from './api/agent';
+import agent from '../api/agent';
+import LoadingComponent from './LoadingComponent';
 
 function App() {
   // Adding Account[] the the types adds type-safety
@@ -14,12 +15,23 @@ function App() {
   // useState<Account | undefined> tager højde for at vælge account og cancel account
   const [selectedAccount, setSelectedAccount] = useState<Account | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
   // Extract the accounts from the API
   useEffect(() => {
     agent.Accounts.list()
     .then(response => {
+
+      // Smart nok hvis jeg skulle håndtere datoer
+      // let accounts: Account[] = [];
+      // response.forEach(account => {
+      //   account.date = account.date.split('T')[0];
+      //   accounts.push(account)
+      // setAccounts(accounts)
+
       setAccounts(response);
+      setLoading(false);
     })
   }, [])
 
@@ -42,13 +54,27 @@ function App() {
 
   function handleCreateOrEditAccount(account: Account)
   {
-      //if we have an id then update it else create a new account
-      account.id 
-        ? setAccounts([...accounts.filter(x => x.id !== account.id), account])
-        // : setAccounts([...accounts, account]);
-        : setAccounts([...accounts, {...account, id: uuid()}]);
-      setEditMode(false);
-      setSelectedAccount(account);
+    setSubmitting(true);
+
+    // create
+    if(account.id){
+      agent.Accounts.update(account).then(() => {
+        setAccounts([...accounts.filter(x => x.id !== account.id), account]);
+        setSelectedAccount(account);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+    // update
+    } else {
+      account.id = uuid();
+      agent.Accounts.create(account).then(() => {
+        setAccounts([...accounts, account])
+        setSelectedAccount(account);
+        setEditMode(false);
+        setSubmitting(false);
+      })
+
+    }
   }
 
   function handleDeleteAccount(id: string){
@@ -56,6 +82,7 @@ function App() {
     setAccounts([...accounts.filter(x => x.id !== id)]);
   }
 
+  if (loading) return <LoadingComponent content='Loading app'/> 
 
 
   return (
@@ -72,6 +99,7 @@ function App() {
             closeForm={handleFormClose}
             createOrEdit={handleCreateOrEditAccount}
             deleteAccount={handleDeleteAccount}
+            submitting={submitting}
           />
         </Container>
     </div>

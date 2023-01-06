@@ -15,9 +15,10 @@ interface Props {
     closeForm: () => void;
     createOrEdit: (account: Account) => void;
     deleteAccount: (id: string) => void;
+    submitting: boolean;
 }
 
-export default function AccountDashboard({accounts, selectedAccount, selectAccount, cancelSelectedAccount, editMode, openForm, closeForm, createOrEdit, deleteAccount}: Props){
+export default function AccountDashboard({accounts, selectedAccount, selectAccount, cancelSelectedAccount, editMode, openForm, closeForm, createOrEdit, deleteAccount, submitting}: Props){
     return(
         <Grid>
             <Grid.Column width='10'>
@@ -43,6 +44,7 @@ export default function AccountDashboard({accounts, selectedAccount, selectAccou
                     closeForm={closeForm}
                     account={selectedAccount}
                     createOrEdit={createOrEdit}
+                    submitting={submitting}
                 />}
 
             </Grid.Column>
