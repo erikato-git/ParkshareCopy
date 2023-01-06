@@ -26,4 +26,12 @@ Create React-project:
 npx create-react-app my-app
 
 Fejl: [eslint] Plugin "react" was conflicted between "package.json » eslint-config-react-app 
-- open package.json and type 'ctrl + s'
+1. delete 'package-lock.json'
+2. npm install
+or 
+1. go to package.json
+2. type 'ctrl + s'
+
+
+
+

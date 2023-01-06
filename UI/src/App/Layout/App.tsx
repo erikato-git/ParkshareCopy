@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
-import { Container, Header } from 'semantic-ui-react';
-import List from 'semantic-ui-react/dist/commonjs/elements/List';
+import { Container } from 'semantic-ui-react';
 import { Account } from '../Models/Account';
 import NavBar from './NavBar';
 import AccountDashboard from '../../features/accounts/dashboard/AccountDashboard';
+import {v4 as uuid} from 'uuid';
 
 function App() {
   // Adding Account[] the the types adds type-safety
@@ -38,6 +38,23 @@ function App() {
     setEditMode(false);
   }
 
+  function handleCreateOrEditAccount(account: Account)
+  {
+      //if we have an id then update it else create a new account
+      account.id 
+        ? setAccounts([...accounts.filter(x => x.id !== account.id), account])
+        // : setAccounts([...accounts, account]);
+        : setAccounts([...accounts, {...account, id: uuid()}]);
+      setEditMode(false);
+      setSelectedAccount(account);
+  }
+
+  function handleDeleteAccount(id: string){
+    // filtrerer alle id'er som ikke matcher id
+    setAccounts([...accounts.filter(x => x.id !== id)]);
+  }
+
+
 
   return (
     <div className="App">
@@ -51,6 +68,8 @@ function App() {
             editMode={editMode}
             openForm={handleFormOpen}
             closeForm={handleFormClose}
+            createOrEdit={handleCreateOrEditAccount}
+            deleteAccount={handleDeleteAccount}
           />
         </Container>
     </div>

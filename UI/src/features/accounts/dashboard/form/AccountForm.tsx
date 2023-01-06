@@ -1,14 +1,15 @@
 import { ChangeEvent, useState } from "react";
-import { Segment, Form, Button } from "semantic-ui-react";
+import { Segment, Form, Button, AccordionPanel } from "semantic-ui-react";
 import { isSetAccessorDeclaration } from "typescript";
 import { Account } from "../../../../App/Models/Account";
 
 interface Props {
     closeForm: () => void;
     account: Account | undefined;
+    createOrEdit: (account: Account) => void;
 }
 
-export default function AccountForm({closeForm, account: selectedAccount}: Props){
+export default function AccountForm({closeForm, account: selectedAccount, createOrEdit}: Props){
 
     const initialState = selectedAccount ?? {
         id: '',
@@ -21,7 +22,7 @@ export default function AccountForm({closeForm, account: selectedAccount}: Props
     const [account, setAccount] = useState(initialState);
 
     function handleSubmit(){
-        console.log(account);
+        createOrEdit(account);
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){

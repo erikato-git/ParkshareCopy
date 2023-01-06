@@ -1,4 +1,4 @@
-import { Grid, List } from "semantic-ui-react";
+import { Grid } from "semantic-ui-react";
 import { Account } from "../../../App/Models/Account";
 import AccountList from "./AccountList";
 import AccountDetails from "./details/AccountDetails";
@@ -13,9 +13,11 @@ interface Props {
     editMode: boolean;
     openForm: (id?: string) => void;
     closeForm: () => void;
+    createOrEdit: (account: Account) => void;
+    deleteAccount: (id: string) => void;
 }
 
-export default function AccountDashboard({accounts, selectedAccount, selectAccount, cancelSelectedAccount, editMode, openForm, closeForm}: Props){
+export default function AccountDashboard({accounts, selectedAccount, selectAccount, cancelSelectedAccount, editMode, openForm, closeForm, createOrEdit, deleteAccount}: Props){
     return(
         <Grid>
             <Grid.Column width='10'>
@@ -23,6 +25,7 @@ export default function AccountDashboard({accounts, selectedAccount, selectAccou
                 <AccountList 
                     accounts={accounts} 
                     selectAccount={selectAccount} 
+                    deleteAccount={deleteAccount}
                     />
 
             </Grid.Column>
@@ -39,6 +42,7 @@ export default function AccountDashboard({accounts, selectedAccount, selectAccou
                 {editMode && <AccountForm 
                     closeForm={closeForm}
                     account={selectedAccount}
+                    createOrEdit={createOrEdit}
                 />}
 
             </Grid.Column>

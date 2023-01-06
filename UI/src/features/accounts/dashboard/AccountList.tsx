@@ -4,9 +4,10 @@ import { Account } from "../../../App/Models/Account"
 interface Props{
     accounts: Account[];
     selectAccount: (id: string) => void;
+    deleteAccount: (id: string) => void;
 }
 
-export default function AccountList({accounts , selectAccount}: Props){
+export default function AccountList({accounts, deleteAccount, selectAccount}: Props){
     return(
         <Segment>
             <Item.Group divided>
@@ -21,6 +22,7 @@ export default function AccountList({accounts , selectAccount}: Props){
                             <Item.Extra>
                                 {/* Lambda gør at funktionen ikke kaldes lige så snart Button bliver load'et */}
                                 <Button onClick={() => selectAccount(account.id)} floated="right" content="View" color="blue"/>
+                                <Button onClick={() => deleteAccount(account.id)} floated="right" content="Delete" color="red"/>
                                 <Label basic content={account.id}/>
                             </Item.Extra>
                         </Item.Content>
