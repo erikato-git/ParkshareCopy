@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
-import { Button, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import { Account } from '../Models/Account';
 import NavBar from './NavBar';
 import AccountDashboard from '../../features/accounts/dashboard/AccountDashboard';
@@ -20,26 +19,14 @@ function App() {
   // useState<Account | undefined> tager højde for at vælge account og cancel account
   const [selectedAccount, setSelectedAccount] = useState<Account | undefined>(undefined);
   const [editMode, setEditMode] = useState(false);
-  const [loading, setLoading] = useState(true);
   // submitting bruges til loading-componenten
   const [submitting, setSubmitting] = useState(false);
 
   // Extract the accounts from the API
   useEffect(() => {
-    agent.Accounts.list()
-    .then(response => {
-
-      // Smart nok hvis jeg skulle håndtere datoer
-      // let accounts: Account[] = [];
-      // response.forEach(account => {
-      //   account.date = account.date.split('T')[0];
-      //   accounts.push(account)
-      // setAccounts(accounts)
-
-      setAccounts(response);
-      setLoading(false);
-    })
-  }, [])
+    accountStore.loadAccounts();
+    
+  }, [accountStore])
 
   function handleSelectAccount(id: string){
     setSelectedAccount(accounts.find(x => x.id == id));
@@ -92,18 +79,15 @@ function App() {
     })
   }
 
-  if (loading) return <LoadingComponent content='Loading app'/> 
+  if (accountStore.loadingInitial) return <LoadingComponent content='Loading app'/> 
 
 
   return (
     <div className="App">
         <NavBar openForm={handleFormOpen}/>
         <Container style={{marginTop: '6em'}}>
-          <h2>{accountStore.title}</h2>
-          <Button content="Add exclamation" positive onClick={accountStore.setTitle}/>
-
           <AccountDashboard 
-            accounts={accounts}
+            accounts={accountStore.accounts}
             selectedAccount={selectedAccount}
             selectAccount={handleSelectAccount}
             cancelSelectedAccount={handleCancelSelectedAccount}
