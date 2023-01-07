@@ -1,5 +1,6 @@
 import { observer } from "mobx-react-lite/";
 import { SyntheticEvent, useState } from "react";
+import { Link } from "react-router-dom";
 import { Button, Item, Label, Segment } from "semantic-ui-react"
 import { Account } from "../../../App/Models/Account"
 import { useStore } from "../../../App/stores/store";
@@ -34,7 +35,7 @@ export default observer(function AccountList(){
                             </Item.Description>
                             <Item.Extra>
                                 {/* Lambda gør at funktionen ikke kaldes lige så snart Button bliver load'et */}
-                                <Button onClick={() => accountStore.selectAccount(account.id)} floated="right" content="View" color="blue"/>
+                                <Button as={Link} to={`/accounts/${account.id}`} floated="right" content="View" color="blue"/>
                                 <Button
                                     name={account.id}
                                     loading={loading && target === account.id} 

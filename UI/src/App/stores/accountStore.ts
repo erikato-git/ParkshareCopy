@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 
 
 export default class AccountStore{
+    accountRegistry = new Map<string, Account>();
     accounts: Account[] = [];
     selectedAccount: Account | undefined = undefined;
     editMode = false;
@@ -12,6 +13,7 @@ export default class AccountStore{
     loadingInitial = false;
     
     constructor(){
+        // MobX, set components to observer that uses resources from this class
         makeAutoObservable(this)
     }
 
@@ -20,8 +22,11 @@ export default class AccountStore{
         try {
             const accounts = await agent.Accounts.list();
             accounts.forEach(account => {
-                // modify each account-object
+                // modify each account-object here
+
+                // Not supposed to be an array and a map
                 this.accounts.push(account);
+                this.accountRegistry.set(account.id, account);
             })
             this.setLoadingInitial(false);
         } catch (error) {
@@ -30,13 +35,23 @@ export default class AccountStore{
         }
     }
 
+
+    loadAccount = async (id:string) => {
+        
+    }
+
+    private getAccount = (id: string) => {
+        return this.accountRegistry.get(id);
+    }
+
     setLoadingInitial = (state: boolean) => {
         this.loadingInitial = state;
     }
 
     // Virkelig dårlig idé at navngive to ting i klassen så tæt på hinanden
     selectAccount = (id: string) => {
-        this.selectedAccount = this.accounts.find(a => a.id === id);
+        // this.selectedAccount = this.accounts.find(a => a.id === id);
+        this.selectedAccount = this.accountRegistry.get(id);
     }
 
     cancelSelectedAccount = () => {
@@ -59,7 +74,8 @@ export default class AccountStore{
         try {
             await agent.Accounts.create(account);
             runInAction(() => {
-                this.accounts.push(account);
+                // this.accounts.push(account);
+                this.accountRegistry.set(account.id, account);
                 this.selectedAccount = account;
                 this.editMode = false;
                 this.loading = false;
@@ -79,7 +95,8 @@ export default class AccountStore{
             await agent.Accounts.update(account)
             runInAction(() => {
                 // create a new array and pass in new account
-                this.accounts = [...this.accounts.filter(a => a.id !== account.id), account];
+                // this.accounts = [...this.accounts.filter(a => a.id !== account.id), account];
+                this.accountRegistry.set(account.id, account);
                 this.selectedAccount = account;
                 this.editMode = false;
                 this.loading = false;
@@ -99,7 +116,8 @@ export default class AccountStore{
         try {
             await agent.Accounts.delete(id);
             runInAction(() => {
-                this.accounts = [...this.accounts.filter(a => a.id !== id)];
+                // this.accounts = [...this.accounts.filter(a => a.id !== id)];
+                this.accountRegistry.delete(id);
                 if (this.selectedAccount?.id == id) this.cancelSelectedAccount();
                 this.loading = false;
             })            
