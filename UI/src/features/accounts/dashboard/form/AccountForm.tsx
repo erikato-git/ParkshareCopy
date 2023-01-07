@@ -20,6 +20,7 @@ export default observer(function AccountForm(){
     const [account, setAccount] = useState(initialState);
 
     function handleSubmit(){
+        console.log("handleSubmit: " + account.id)
         account.id ? updateAccount(account) : createAccount(account);
     }
 

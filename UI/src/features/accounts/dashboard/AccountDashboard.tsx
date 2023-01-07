@@ -1,30 +1,21 @@
 import { observer } from "mobx-react-lite"; // always check the exact path, it might cause bugs
 import { Grid } from "semantic-ui-react";
-import { Account } from "../../../App/Models/Account";
 import { useStore } from "../../../App/stores/store";
 import AccountList from "./AccountList";
 import AccountDetails from "./details/AccountDetails";
 import AccountForm from "./form/AccountForm";
 
-interface Props {
-    deleteAccount: (id: string) => void;
-    submitting: boolean;
-}
 
-export default observer(function AccountDashboard({deleteAccount, submitting}: Props){
+export default observer(function AccountDashboard(){
 
     const {accountStore} = useStore();
-    const {selectedAccount, editMode, accounts} = accountStore;
+    const {selectedAccount, editMode } = accountStore;
 
     return(
         <Grid>
             <Grid.Column width='10'>
 
-                <AccountList 
-                    accounts={accounts} 
-                    deleteAccount={deleteAccount}
-                    submitting={submitting}
-                    />
+                <AccountList />
 
             </Grid.Column>
             <Grid.Column width='6'>

@@ -53,6 +53,7 @@ export default class AccountStore{
     }
 
     createAccount = async (account: Account) => {
+        console.log("account: " + account)
         this.loading = true;
         account.id = uuid();
         try {
@@ -63,6 +64,7 @@ export default class AccountStore{
                 this.editMode = false;
                 this.loading = false;
             })
+            console.log("Create succeeded")
         } catch (error) {
             console.log(error)
             runInAction(() => {
@@ -82,6 +84,26 @@ export default class AccountStore{
                 this.editMode = false;
                 this.loading = false;
             })
+            console.log("Update succeeded")
+        } catch (error) {
+            console.log(error)
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+
+    deleteAccount = async (id: string) => {
+        this.loading = true;
+
+        try {
+            await agent.Accounts.delete(id);
+            runInAction(() => {
+                this.accounts = [...this.accounts.filter(a => a.id !== id)];
+                if (this.selectedAccount?.id == id) this.cancelSelectedAccount();
+                this.loading = false;
+            })            
+            console.log("Delete succeeded")
         } catch (error) {
             console.log(error)
             runInAction(() => {

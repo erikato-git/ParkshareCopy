@@ -1,3 +1,4 @@
+import { observer } from "mobx-react-lite/";
 import { SyntheticEvent, useState } from "react";
 import { Button, Item, Label, Segment } from "semantic-ui-react"
 import { Account } from "../../../App/Models/Account"
@@ -9,10 +10,10 @@ interface Props{
     submitting: boolean;
 }
 
-export default function AccountList({accounts, deleteAccount, submitting}: Props){
+export default observer(function AccountList(){
     const [target, setTarget] = useState('');
-
     const {accountStore} = useStore();
+    const {deleteAccount, accounts, loading} = accountStore;
 
     function handleAccountDelete(e: SyntheticEvent<HTMLButtonElement>, id: string){
         // setTarget bruges til at specificere hvilken delete knap, der skal have en loading-comp.
@@ -36,7 +37,7 @@ export default function AccountList({accounts, deleteAccount, submitting}: Props
                                 <Button onClick={() => accountStore.selectAccount(account.id)} floated="right" content="View" color="blue"/>
                                 <Button
                                     name={account.id}
-                                    loading={submitting && target === account.id} 
+                                    loading={loading && target === account.id} 
                                     onClick={(e) => handleAccountDelete(e, account.id)} 
                                     floated="right" 
                                     content="Delete" 
@@ -49,4 +50,4 @@ export default function AccountList({accounts, deleteAccount, submitting}: Props
             </Item.Group>
         </Segment>
     )
-}
+})
