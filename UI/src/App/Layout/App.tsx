@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import 'semantic-ui-css/semantic.min.css'
-import { Container } from 'semantic-ui-react';
+import { Button, Container } from 'semantic-ui-react';
 import { Account } from '../Models/Account';
 import NavBar from './NavBar';
 import AccountDashboard from '../../features/accounts/dashboard/AccountDashboard';
 import {v4 as uuid} from 'uuid';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
+import { useStore } from '../stores/store';
+import { observer } from 'mobx-react-lite';
 
 function App() {
+  const {accountStore} = useStore();
+
+
   // Adding Account[] the the types adds type-safety
   const [accounts,setAccounts] = useState<Account[]>([]);
   // useState<Account | undefined> tager højde for at vælge account og cancel account
@@ -94,6 +99,9 @@ function App() {
     <div className="App">
         <NavBar openForm={handleFormOpen}/>
         <Container style={{marginTop: '6em'}}>
+          <h2>{accountStore.title}</h2>
+          <Button content="Add exclamation" positive onClick={accountStore.setTitle}/>
+
           <AccountDashboard 
             accounts={accounts}
             selectedAccount={selectedAccount}
@@ -112,9 +120,7 @@ function App() {
 }
 
 
-
-
-export default App;
+export default observer(App);
 
 
 
