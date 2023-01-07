@@ -1,6 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx"
 import agent from "../api/agent";
 import { Account } from "../Models/Account";
+import { v4 as uuid } from 'uuid'; 
 
 
 export default class AccountStore{
@@ -50,6 +51,45 @@ export default class AccountStore{
     closeForm = () => {
         this.editMode = false;
     }
+
+    createAccount = async (account: Account) => {
+        this.loading = true;
+        account.id = uuid();
+        try {
+            await agent.Accounts.create(account);
+            runInAction(() => {
+                this.accounts.push(account);
+                this.selectedAccount = account;
+                this.editMode = false;
+                this.loading = false;
+            })
+        } catch (error) {
+            console.log(error)
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+
+    updateAccount = async (account: Account) => {
+        this.loading = true;
+        try {
+            await agent.Accounts.update(account)
+            runInAction(() => {
+                // create a new array and pass in new account
+                this.accounts = [...this.accounts.filter(a => a.id !== account.id), account];
+                this.selectedAccount = account;
+                this.editMode = false;
+                this.loading = false;
+            })
+        } catch (error) {
+            console.log(error)
+            runInAction(() => {
+                this.loading = false;
+            })
+        }
+    }
+
 
 }
 

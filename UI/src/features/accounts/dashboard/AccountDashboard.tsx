@@ -7,12 +7,11 @@ import AccountDetails from "./details/AccountDetails";
 import AccountForm from "./form/AccountForm";
 
 interface Props {
-    createOrEdit: (account: Account) => void;
     deleteAccount: (id: string) => void;
     submitting: boolean;
 }
 
-export default observer(function AccountDashboard({createOrEdit, deleteAccount, submitting}: Props){
+export default observer(function AccountDashboard({deleteAccount, submitting}: Props){
 
     const {accountStore} = useStore();
     const {selectedAccount, editMode, accounts} = accountStore;
@@ -36,10 +35,7 @@ export default observer(function AccountDashboard({createOrEdit, deleteAccount, 
 
                 {editMode && 
                 // Only leave variables that control conditions. Resources that belongs to a class should be removed
-                <AccountForm 
-                    createOrEdit={createOrEdit}
-                    submitting={submitting}
-                />}
+                <AccountForm />}
 
             </Grid.Column>
         </Grid>

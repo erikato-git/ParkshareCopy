@@ -4,7 +4,6 @@ import { Container } from 'semantic-ui-react';
 import { Account } from '../Models/Account';
 import NavBar from './NavBar';
 import AccountDashboard from '../../features/accounts/dashboard/AccountDashboard';
-import {v4 as uuid} from 'uuid';
 import agent from '../api/agent';
 import LoadingComponent from './LoadingComponent';
 import { useStore } from '../stores/store';
@@ -16,9 +15,6 @@ function App() {
 
   // Adding Account[] the the types adds type-safety
   const [accounts,setAccounts] = useState<Account[]>([]);
-  // useState<Account | undefined> tager højde for at vælge account og cancel account
-  const [selectedAccount, setSelectedAccount] = useState<Account | undefined>(undefined);
-  const [editMode, setEditMode] = useState(false);
   // submitting bruges til loading-componenten
   const [submitting, setSubmitting] = useState(false);
 
@@ -28,31 +24,6 @@ function App() {
     
   }, [accountStore])
 
-
-  function handleCreateOrEditAccount(account: Account)
-  {
-    setSubmitting(true);
-
-    // create
-    if(account.id){
-      agent.Accounts.update(account).then(() => {
-        setAccounts([...accounts.filter(x => x.id !== account.id), account]);
-        setSelectedAccount(account);
-        setEditMode(false);
-        setSubmitting(false);
-      })
-    // update
-    } else {
-      account.id = uuid();
-      agent.Accounts.create(account).then(() => {
-        setAccounts([...accounts, account])
-        setSelectedAccount(account);
-        setEditMode(false);
-        setSubmitting(false);
-      })
-
-    }
-  }
 
   function handleDeleteAccount(id: string){
     setSubmitting(true);
@@ -71,7 +42,6 @@ function App() {
         <NavBar />
         <Container style={{marginTop: '6em'}}>
           <AccountDashboard 
-            createOrEdit={handleCreateOrEditAccount}
             deleteAccount={handleDeleteAccount}
             submitting={submitting}
           />
