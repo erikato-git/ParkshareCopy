@@ -2,15 +2,16 @@ import { ChangeEvent, useState } from "react";
 import { Segment, Form, Button, AccordionPanel } from "semantic-ui-react";
 import { isSetAccessorDeclaration } from "typescript";
 import { Account } from "../../../../App/Models/Account";
+import { useStore } from "../../../../App/stores/store";
 
 interface Props {
-    closeForm: () => void;
-    account: Account | undefined;
     createOrEdit: (account: Account) => void;
     submitting: (boolean);
 }
 
-export default function AccountForm({closeForm, account: selectedAccount, createOrEdit, submitting}: Props){
+export default function AccountForm({createOrEdit, submitting}: Props){
+    const {accountStore} = useStore();
+    const {selectedAccount, closeForm} = accountStore;
 
     const initialState = selectedAccount ?? {
         id: '',

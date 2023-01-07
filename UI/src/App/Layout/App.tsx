@@ -28,22 +28,6 @@ function App() {
     
   }, [accountStore])
 
-  function handleSelectAccount(id: string){
-    setSelectedAccount(accounts.find(x => x.id == id));
-  }
-
-  function handleCancelSelectedAccount(){
-    setSelectedAccount(undefined);
-  }
-
-  function handleFormOpen(id?: string){
-    id ? handleSelectAccount(id) : handleCancelSelectedAccount();
-    setEditMode(true);
-  }
-
-  function handleFormClose(){
-    setEditMode(false);
-  }
 
   function handleCreateOrEditAccount(account: Account)
   {
@@ -84,16 +68,9 @@ function App() {
 
   return (
     <div className="App">
-        <NavBar openForm={handleFormOpen}/>
+        <NavBar />
         <Container style={{marginTop: '6em'}}>
           <AccountDashboard 
-            accounts={accountStore.accounts}
-            selectedAccount={selectedAccount}
-            selectAccount={handleSelectAccount}
-            cancelSelectedAccount={handleCancelSelectedAccount}
-            editMode={editMode}
-            openForm={handleFormOpen}
-            closeForm={handleFormClose}
             createOrEdit={handleCreateOrEditAccount}
             deleteAccount={handleDeleteAccount}
             submitting={submitting}

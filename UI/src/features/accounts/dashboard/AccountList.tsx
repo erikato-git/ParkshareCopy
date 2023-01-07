@@ -1,17 +1,18 @@
 import { SyntheticEvent, useState } from "react";
 import { Button, Item, Label, Segment } from "semantic-ui-react"
 import { Account } from "../../../App/Models/Account"
+import { useStore } from "../../../App/stores/store";
 
 interface Props{
     accounts: Account[];
-    selectAccount: (id: string) => void;
     deleteAccount: (id: string) => void;
     submitting: boolean;
 }
 
-export default function AccountList({accounts, deleteAccount, selectAccount, submitting}: Props){
+export default function AccountList({accounts, deleteAccount, submitting}: Props){
     const [target, setTarget] = useState('');
 
+    const {accountStore} = useStore();
 
     function handleAccountDelete(e: SyntheticEvent<HTMLButtonElement>, id: string){
         // setTarget bruges til at specificere hvilken delete knap, der skal have en loading-comp.
@@ -32,7 +33,7 @@ export default function AccountList({accounts, deleteAccount, selectAccount, sub
                             </Item.Description>
                             <Item.Extra>
                                 {/* Lambda gør at funktionen ikke kaldes lige så snart Button bliver load'et */}
-                                <Button onClick={() => selectAccount(account.id)} floated="right" content="View" color="blue"/>
+                                <Button onClick={() => accountStore.selectAccount(account.id)} floated="right" content="View" color="blue"/>
                                 <Button
                                     name={account.id}
                                     loading={submitting && target === account.id} 
