@@ -1,4 +1,4 @@
-import { observer } from "mobx-react-lite/dist/observer";
+import { observer } from "mobx-react-lite"; // always check the exact path, it might cause bugs
 import { Grid } from "semantic-ui-react";
 import { Account } from "../../../App/Models/Account";
 import { useStore } from "../../../App/stores/store";
@@ -12,7 +12,7 @@ interface Props {
     submitting: boolean;
 }
 
-export default function AccountDashboard({createOrEdit, deleteAccount, submitting}: Props){
+export default observer(function AccountDashboard({createOrEdit, deleteAccount, submitting}: Props){
 
     const {accountStore} = useStore();
     const {selectedAccount, editMode, accounts} = accountStore;
@@ -44,4 +44,4 @@ export default function AccountDashboard({createOrEdit, deleteAccount, submittin
             </Grid.Column>
         </Grid>
     )
-}
+})

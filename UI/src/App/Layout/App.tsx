@@ -80,7 +80,7 @@ function App() {
   );
 }
 
-
+// TODO: Se nogle flere videoer, hvorfor observer skal erklæres her
 export default observer(App);
 
 
