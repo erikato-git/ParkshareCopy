@@ -1,4 +1,5 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 import { Account } from "../Models/Account";
 
 // fake delay, for loading animation
@@ -13,12 +14,29 @@ axios.defaults.baseURL = 'http://localhost:5000/api';
 
 // fake delay
 axios.interceptors.response.use(async response => {
-    try {
-        await sleep(1000);
-        return response;
-    } catch (error) {
-        return await Promise.reject(error);
+    await sleep(1000);
+    return response;
+}, (error: AxiosError) => {
+    // AxiosError -> AxiosResponse, har data og status, derfor over-rule's typescript error-markering
+    const {data, status} = error.response!;
+    switch(status){
+        case 400:
+            toast.error('bad request');
+            break;
+        case 401:
+            toast.error('unauthorized');
+            break;
+        case 403:
+            toast.error('forbidden');
+            break;
+        case 404:
+            toast.error('not found');
+            break;
+        case 500:
+            toast.error('server error');
+            break;
     }
+    return Promise.reject(error);
 })
 
 

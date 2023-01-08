@@ -1,11 +1,10 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './App/Layout/styles.css'
-import App from './App/Layout/App';
 import reportWebVitals from './reportWebVitals';
 import { store, StoreContext } from './App/stores/store';
 import { RouterProvider } from 'react-router-dom';
 import { router } from './App/router/Routes';
+import 'react-toastify/dist/ReactToastify.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

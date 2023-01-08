@@ -15,6 +15,7 @@ export default function NavBar(){
                     Accounts
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/accounts' name="Accounts"/>
+                <Menu.Item as={NavLink} to='/errors' name="Errors"/>
                 <Menu.Item>
                     {/* TODO: openForm skal bruge et 'id' */}
                     <Button as={NavLink} to='/createAccount' positive content="Create Account"/>
