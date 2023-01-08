@@ -2,18 +2,35 @@ import 'semantic-ui-css/semantic.min.css'
 import { Container } from 'semantic-ui-react';
 import NavBar from './NavBar';
 import { observer } from 'mobx-react-lite';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
+import HomePage from '../home/HomePage';
 
 function App() {
 
+  const location = useLocation();
+
+  // return (
+  //   <div className="App">
+  //     {location.pathname === '/' ? <HomePage /> : (
+  //         <>
+  //           <NavBar />
+  //           <Container style={{marginTop: '6em'}}>
+  //             <Outlet />
+  //           </Container>
+  //         </>
+  //     )}
+  //   </div>
+  // );
+
   return (
     <div className="App">
-        <NavBar />
-        <Container style={{marginTop: '6em'}}>
-          <Outlet />
-        </Container>
+            <NavBar />
+            <Container style={{marginTop: '6em'}}>
+              <Outlet />
+            </Container>
     </div>
   );
+
 }
 
 // TODO: Se nogle flere videoer, hvorfor observer skal erklæres her

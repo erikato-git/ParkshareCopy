@@ -22,11 +22,7 @@ export default class AccountStore{
         try {
             const accounts = await agent.Accounts.list();
             accounts.forEach(account => {
-                // modify each account-object here
-
-                // Not supposed to be an array and a map
-                this.accounts.push(account);
-                this.accountRegistry.set(account.id, account);
+                this.setAccounts(account);
             })
             this.setLoadingInitial(false);
         } catch (error) {
@@ -37,7 +33,30 @@ export default class AccountStore{
 
 
     loadAccount = async (id:string) => {
-        
+        let account = this.getAccount(id);
+        if(account){
+            this.selectedAccount = account;
+            return account;
+        } 
+        else{
+            this.setLoadingInitial(true);
+            try {
+                account = await agent.Accounts.details(id);
+                this.setAccounts(account);
+                runInAction(() => { this.selectedAccount = account });
+                this.selectedAccount = account;
+                this.setLoadingInitial(false);
+            } catch (error) {
+                console.log(error)
+                this.setLoadingInitial(false);
+            }
+        }
+    }
+
+    private setAccounts = (account: Account) => {
+        // Not supposed to be an array and a map
+        this.accounts.push(account);
+        this.accountRegistry.set(account.id, account);
     }
 
     private getAccount = (id: string) => {
@@ -48,24 +67,6 @@ export default class AccountStore{
         this.loadingInitial = state;
     }
 
-    // Virkelig dårlig idé at navngive to ting i klassen så tæt på hinanden
-    selectAccount = (id: string) => {
-        // this.selectedAccount = this.accounts.find(a => a.id === id);
-        this.selectedAccount = this.accountRegistry.get(id);
-    }
-
-    cancelSelectedAccount = () => {
-        this.selectedAccount = undefined;
-    }
-
-    openForm = (id?: string) => {
-        id ? this.selectAccount(id) : this.cancelSelectedAccount();
-        this.editMode = true;
-    }
-
-    closeForm = () => {
-        this.editMode = false;
-    }
 
     createAccount = async (account: Account) => {
         console.log("account: " + account)
@@ -118,7 +119,6 @@ export default class AccountStore{
             runInAction(() => {
                 // this.accounts = [...this.accounts.filter(a => a.id !== id)];
                 this.accountRegistry.delete(id);
-                if (this.selectedAccount?.id == id) this.cancelSelectedAccount();
                 this.loading = false;
             })            
             console.log("Delete succeeded")

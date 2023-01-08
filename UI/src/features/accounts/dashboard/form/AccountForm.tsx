@@ -1,27 +1,41 @@
 import { observer } from "mobx-react-lite/";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { Segment, Form, Button, AccordionPanel } from "semantic-ui-react";
+import LoadingComponent from "../../../../App/Layout/LoadingComponent";
+import { Account } from "../../../../App/Models/Account";
 import { useStore } from "../../../../App/stores/store";
+import {v4 as uuid} from 'uuid';
 
 
 // makes oberserver because we wanna track 'loading' from accountStore
 export default observer(function AccountForm(){
     const {accountStore} = useStore();
-    const {selectedAccount, closeForm, createAccount, updateAccount, loading} = accountStore;
+    const {selectedAccount, createAccount, updateAccount, loading, loadAccount, loadingInitial} = accountStore;
+    const {id} = useParams();
+    const navigate = useNavigate();
 
-    const initialState = selectedAccount ?? {
+    const [account, setAccount] = useState<Account>({
         id: '',
         name: '',
         email: '',
         address: '',
         password: '',
-    }
+    })
 
-    const [account, setAccount] = useState(initialState);
+    useEffect(() => {
+        // account! er et hack for at undgå at erklære account med typen 'Account | undefined'
+        if(id) loadAccount(id).then(account => setAccount(account!));
+    }, [id, loadAccount])
 
     function handleSubmit(){
         console.log("handleSubmit: " + account.id)
-        account.id ? updateAccount(account) : createAccount(account);
+        if(!account.id){
+            account.id = uuid();
+            createAccount(account).then(() => navigate(`/accounts/${account.id}`))
+        }else {
+            updateAccount(account).then(() => navigate(`/accounts/${account.id}`));
+        }
     }
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>){
@@ -30,6 +44,8 @@ export default observer(function AccountForm(){
         setAccount({...account, [name]: value});
     }
 
+    if (loadingInitial) return <LoadingComponent content="Loading accounts ..." />
+
     return (
         <Segment clearing>
             <Form onSubmit={handleSubmit} autoComplete='off'>
@@ -37,7 +53,7 @@ export default observer(function AccountForm(){
                 <Form.Input placeholder="email" value={account.email} name='email' onChange={handleInputChange}/>
                 <Form.TextArea placeholder="address" value={account.address} name='address' onChange={handleInputChange}/>
                 <Button loading={loading} floated="right" positive type="submit" content="Submit" />
-                <Button onClick={closeForm} floated="right" type="button" content="Cancel" />
+                <Button floated="right" type="button" content="Cancel" />
             </Form>
         </Segment>
     )

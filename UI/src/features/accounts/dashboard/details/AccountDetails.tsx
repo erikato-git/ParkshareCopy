@@ -1,16 +1,25 @@
+import { observer } from "mobx-react-lite";
+import { useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
 import { Button, Card, Icon, Image } from "semantic-ui-react";
 import LoadingComponent from "../../../../App/Layout/LoadingComponent";
 import { useStore } from "../../../../App/stores/store";
 
 
 
-export default function AccountDetails(){
+export default observer(function AccountDetails(){
 
   const {accountStore} = useStore();
-  const {selectedAccount: account, openForm, cancelSelectedAccount} = accountStore;
+  const {selectedAccount: account, loadAccount, loadingInitial} = accountStore;
+  const {id} = useParams();
+
+  useEffect(() => {
+    if(id) loadAccount(id);
+  }, [id, loadAccount])
+
 
   // account cannot be 'null' anyway since the parent component checks before accessing this component
-  if(!account) return <LoadingComponent />;
+  if(loadingInitial || !account) return <LoadingComponent />;
 
   return (
       <Card>
@@ -27,11 +36,11 @@ export default function AccountDetails(){
       </Card.Content>
       <Card.Content extra>
           <Button.Group>
-              <Button onClick={() => openForm(account.id)} basic color="blue" content="Edit" />
+              <Button as={Link} to={`/manage/${account.id}`} basic color="blue" content="Edit" />
               {/* // Don't add lambda */}
-              <Button onClick={cancelSelectedAccount} basic color="grey" content="Cancel" />
+              <Button as={Link} to='/accounts' basic color="grey" content="Cancel" />
           </Button.Group>
       </Card.Content>
     </Card>
   )
-}
+})

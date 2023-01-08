@@ -30,15 +30,7 @@ export default observer(function AccountDashboard(){
 
             </Grid.Column>
             <Grid.Column width='6'>
-
-                {/* Makes sure the element isn't null */}
-                {selectedAccount && !editMode && 
-                <AccountDetails/>}
-
-                {editMode && 
-                // Only leave variables that control conditions. Resources that belongs to a class should be removed
-                <AccountForm />}
-
+                <h2>Account Filters</h2>
             </Grid.Column>
         </Grid>
     )

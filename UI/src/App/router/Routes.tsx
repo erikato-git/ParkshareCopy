@@ -13,7 +13,9 @@ export const routes: RouteObject[] = [
             {path: '', element: <HomePage/>},
             {path: 'accounts', element: <AccountDashboard/>},
             {path: 'accounts/:id', element: <AccountDetails/>},
-            {path: 'createAccount', element: <AccountForm/>}
+            {path: 'createAccount', element: <AccountForm key='create'/>},
+            {path: 'manage/:id', element: <AccountForm key='manage'/>}
+
         ]
     }
 ]
