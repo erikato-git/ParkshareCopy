@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { Account } from "../Models/Account";
+import { router } from "../router/Routes";
 
 // fake delay, for loading animation
 const sleep = (delay: number) => {
@@ -18,10 +19,22 @@ axios.interceptors.response.use(async response => {
     return response;
 }, (error: AxiosError) => {
     // AxiosError -> AxiosResponse, har data og status, derfor over-rule's typescript error-markering
-    const {data, status} = error.response!;
+    const {data, status} = error.response as AxiosResponse;
     switch(status){
         case 400:
             toast.error('bad request');
+            if (data.errors){
+                const modalStateErrors = [];
+                for (const key in data.errors){
+                    if(data.errors[key]){
+                        modalStateErrors.push(data.errors[key]);
+                    }
+                }
+                // Throw an array of errors that is much easier to work with
+                throw modalStateErrors.flat();
+            } else {
+                toast.error(data);
+            }
             break;
         case 401:
             toast.error('unauthorized');
@@ -30,7 +43,7 @@ axios.interceptors.response.use(async response => {
             toast.error('forbidden');
             break;
         case 404:
-            toast.error('not found');
+            router.navigate('/not-found');
             break;
         case 500:
             toast.error('server error');
