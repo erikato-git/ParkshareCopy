@@ -11,12 +11,12 @@ import AccountForm from "./form/AccountForm";
 export default observer(function AccountDashboard(){
 
     const {accountStore} = useStore();
-    const {selectedAccount, editMode } = accountStore;
+    const {loadAccounts, accountRegistry} = accountStore;
 
     // Extract the accounts from the API
     useEffect(() => {
-      accountStore.loadAccounts();
-    }, [accountStore])
+        if(accountRegistry.size === 0) loadAccounts();
+    }, [loadAccounts])
   
   
     if (accountStore.loadingInitial) return <LoadingComponent content='Loading app'/> 

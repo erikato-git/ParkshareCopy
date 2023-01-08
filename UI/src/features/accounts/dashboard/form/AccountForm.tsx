@@ -1,6 +1,6 @@
 import { observer } from "mobx-react-lite/";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Segment, Form, Button, AccordionPanel } from "semantic-ui-react";
 import LoadingComponent from "../../../../App/Layout/LoadingComponent";
 import { Account } from "../../../../App/Models/Account";
@@ -53,7 +53,7 @@ export default observer(function AccountForm(){
                 <Form.Input placeholder="email" value={account.email} name='email' onChange={handleInputChange}/>
                 <Form.TextArea placeholder="address" value={account.address} name='address' onChange={handleInputChange}/>
                 <Button loading={loading} floated="right" positive type="submit" content="Submit" />
-                <Button floated="right" type="button" content="Cancel" />
+                <Button as={Link} to='/accounts' floated="right" type="button" content="Cancel" />
             </Form>
         </Segment>
     )
