@@ -36,6 +36,14 @@ Fejl: [eslint] Plugin "react" was conflicted between "package.json » eslint-con
     },
 
 
+Make a new migration:
+1. go to solution-level and open up terminal
+2. type 'dotnet ef migations add [name] -p Persistence -s API
+   p: project that contains DataContext-class, s: starter project
+
+
+
+
 
 
 

@@ -31,6 +31,7 @@ export default observer(function AccountForm(){
         password: '',
     })
 
+    // Validation on client side is nice to have, server is must to have
     const validationSchema = Yup.object({
         name: Yup.string().required('The account name is required'),
         email: Yup.string().required(),
