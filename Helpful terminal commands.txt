@@ -41,7 +41,11 @@ Make a new migration:
 2. type 'dotnet ef migations add [name] -p Persistence -s API
    p: project that contains DataContext-class, s: starter project
 
+How to delete a [database].db in SQLite:
+1. Find the db-file (typically in API-folder) and delete it manually
 
+How to open up SQLite database tables:
+1. type 'ctrl + p' and search for '>SQLite:Open database'
 
 
 

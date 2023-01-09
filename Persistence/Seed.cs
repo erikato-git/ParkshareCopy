@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Identity;
 
@@ -7,20 +8,37 @@ namespace Persistence
     {
         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
-            if(!userManager.Users.Any())
-            {
+            // if (!userManager.Users.Any() && !context.Accounts.Any())
+            // {
+            if (!context.AppUsers.Any()){
+
                 var users = new List<AppUser>
                 {
-                    new AppUser{DisplayName = "User1", Bio="Bio1"},
-                    new AppUser{DisplayName = "User2", Bio="Bio2"},
-                    new AppUser{DisplayName = "User3", Bio="Bio3"}
+                    new AppUser
+                    {
+                        DisplayName = "Bob",
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Jane",
+                    },
+                    new AppUser
+                    {
+                        DisplayName = "Tom",
+                    },
                 };
 
-                foreach (var user in users)
-                {
-                    await userManager.CreateAsync(user, "Pa$$w0rd");
-                }
-            }
+                await context.AppUsers.AddRangeAsync(users);
+
+            } 
+
+            
+
+                // foreach (var user in users)
+                // {
+                //     await userManager.CreateAsync(user, "Pa$$w0rd");
+                // }
+
 
             //Don't need to seed if we have items in db
             if (context.Accounts.Any()) return;
@@ -52,6 +70,7 @@ namespace Persistence
 
             await context.Accounts.AddRangeAsync(accounts);
             await context.SaveChangesAsync();
+        // }
         }
     }
 }
