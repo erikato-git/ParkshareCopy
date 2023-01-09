@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Microsoft.AspNetCore.Identity;
@@ -17,14 +19,20 @@ namespace Persistence
                     new AppUser
                     {
                         DisplayName = "Bob",
+                        Email = "bob@mail.com",
+                        Password = "Pa$$w0rd",
                     },
                     new AppUser
                     {
                         DisplayName = "Jane",
+                        Email = "jane@mail.com",
+                        Password = "Pa$$w0rd",
                     },
                     new AppUser
                     {
                         DisplayName = "Tom",
+                        Email = "tom@mail.com",
+                        Password = "Pa$$w0rd",
                     },
                 };
 
