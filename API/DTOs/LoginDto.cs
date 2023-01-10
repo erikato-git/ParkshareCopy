@@ -1,3 +1,5 @@
+// DTOs are only used to transfer one object from a process or context to another
+
 
 namespace API.DTOs
 {

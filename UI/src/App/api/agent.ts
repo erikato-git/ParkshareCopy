@@ -1,6 +1,7 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { Account } from "../Models/Account";
+import { User, UserFormValues } from "../Models/user";
 import { router } from "../router/Routes";
 
 // fake delay, for loading animation
@@ -12,6 +13,15 @@ const sleep = (delay: number) => {
 
 // TODO: test om man ikke også kan bruge fetch til samme foremål
 axios.defaults.baseURL = 'http://localhost:5000/api';
+
+
+// by every request, if we have a token it will be added to header.Authorization
+axios.interceptors.request.use(config => {
+    const token = store.CommonStore.token;
+    if (token && config.headers) config.headers.Authorization = `Bearer ${token}`;
+    return config;
+})
+
 
 // fake delay
 axios.interceptors.response.use(async response => {
@@ -74,9 +84,16 @@ const Accounts = {
     delete: (id: string) => axios.delete<void>(`/account/${id}`)
 }
 
+const User = {
+    current: () => requests.get<User>('/AppUser'),
+    login: (user: UserFormValues) => requests.post<User>('/AppUser/login', user),
+    register: (user: UserFormValues) => requests.post<User>('/AppUser/register', user)
+}
+
 
 const agent = {
-    Accounts
+    Accounts,
+    User
 }
 
 export default agent;

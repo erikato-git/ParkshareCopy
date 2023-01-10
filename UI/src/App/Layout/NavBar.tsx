@@ -5,6 +5,7 @@ import { useStore } from "../stores/store";
 
 
 export default function NavBar(){
+    const { userStore: {user, logout} } = useStore();
 
     return(
         <Menu inverted fixed='top'>

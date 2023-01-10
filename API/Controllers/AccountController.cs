@@ -7,6 +7,7 @@ using Persistence;
 
 namespace API.Controllers
 {
+    // After adding authentication we can still work with these end-points without loggin in by adding [AllowAnonymous] above the class
     public class AccountController: BaseApiController
     {
 
@@ -22,6 +23,8 @@ namespace API.Controllers
             return HandleResult(result);
         }
 
+
+        // ModelState kan bruges til at validere om parameterne er udfyldt korrekt
         [HttpPost]
         public async Task<IActionResult> CreateAccount(Account account){
             return HandleResult(await Mediator.Send(new AccountCreate.Command{Account = account}));
