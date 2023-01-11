@@ -11,5 +11,8 @@ namespace Domain
         public string Address { get; set; }
         public string Password { get; set; }
         //TODO: Parkingspot
+        
+        // initilize it to new List<AccountPet> will prevent 'null object errer'
+        public ICollection<AccountPet> Pets { get; set; } = new List<AccountPet>();
     }
 }

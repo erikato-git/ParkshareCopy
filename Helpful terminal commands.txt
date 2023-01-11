@@ -49,6 +49,24 @@ How to delete a [database].db in SQLite:
 How to open up SQLite database tables:
 1. type 'ctrl + p' and search for '>SQLite:Open database'
 
+Remove migrations from database:
+1. go to solution-level
+2. dotnet ef migrations remove -p Persistence -s API
+
+
+Many-to-Many relations in database (class A and B):
+Domain:
+1. Make a join entity class between A and B with id and association to A and B
+2. Add A: ICollection<AB> and B: ICollection<AB>
+Persistence:
+3. Add DbSet<AB> in DataContext
+4. Override OnModelCreating
+5. Make a primary key between A and B
+6. Make the bindings between A and AB, and B and AB
+sln-level:
+7. make a new migration
+8. create and new project and call it infrastructure, add a reference to Application, and add a reference from API to Infrastructure for dependency-injection
+9. Find et andet eksempel
 
 
 
